@@ -8,17 +8,27 @@ import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 from dotenv import load_dotenv
 
-scope = "user-library-read"
+scope = "user-library-read playlist-read-private"
 
 load_dotenv()
 client_id = os.getenv("SPOTIPY_CLIENT_ID")
 client_secret = os.getenv("SPOTIPY_CLIENT_SECRET")
 redirect_uri = os.getenv("SPOTIPY_REDIRECT_URI")
 
-sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=client_id,
-                                               client_secret=client_secret,
-                                               redirect_uri=redirect_uri,
-                                               scope=scope))
+sp_oauth = SpotifyOAuth(client_id=client_id,
+                        client_secret=client_secret,
+                        redirect_uri=redirect_uri,
+                        scope=scope)
+
+sp = spotipy.Spotify(auth_manager=sp_oauth)
+
+# ----------------------------------------------------------
+# Only for Spotify Authentication
+# ----------------------------------------------------------
+
+# Get auth url and show to paste in the browser
+auth_url = sp_oauth.get_authorize_url()
+print(f"Please, open the following URL in your browser to authenticate in Spotify: {auth_url}")
 
 SONGS_TRACKER = "songs.csv"
 DESKTOP_PATH = Path.home() / "Desktop" / "Songs"

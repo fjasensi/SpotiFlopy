@@ -39,11 +39,14 @@ SPOTIPY_CLIENT_ID=your_spotify_client_id
 SPOTIPY_CLIENT_SECRET=your_spotify_client_secret
 SPOTIPY_REDIRECT_URI=http://localhost:8888/callback/
 ```
+**Note**: Since I am running from Windows with WSL2, it is necessary to obtain the IP address of WSL. To do this, run the following command in the Linux terminal: `hostname -I`. This will be the IP address that we configure in the Spotify Developers app and set in the `.env` file.
 ## 4. Run the script
 ```bash
 python main.py
 ```
 
 The first time you run the script, it will open a browser for you to authenticate with Spotify. After that, it will handle token refreshes automatically.
+
+In the console, a URL will appear that you need to open to log in to Spotify. Once you have completed the login, it will redirect to an address like: `http://172.1.23.45:8888/callback/?code=AbbasdfT......`. The browser may say that the page is not accessible, but you need to copy this URL and paste it into the console.
 
 
